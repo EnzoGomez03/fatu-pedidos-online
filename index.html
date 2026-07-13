@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fatu | Pedidos Online</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+    <header>
+        <img src="assets/img/fatuDelicias.png" alt="Fatu Delicias y Sabores" class="logo">
+        <div class="header-texto">
+            <h1>Pedidos Online</h1>
+            <p>Elegí tus bandejas y envialas por WhatsApp.</p>
+        </div>
+    </header>
+
+    <main>
+            <!-- Productos -->
+        <section id="productos">
+
+            <h2>Nuestros productos</h2>
+
+            <div class="productos-container">
+
+                <!-- Acá JavaScript agregará las tarjetas -->
+
+            </div>
+
+        </section>
+
+        <!-- Resumen del pedido -->
+        <section id="pedido">
+
+            <h2>Resumen del pedido</h2>
+
+            <div id="lista-pedido">
+                <p>Tu carrito está vacío.</p>
+            </div>
+
+            <h3>Total: $<span id="total">0</span></h3>
+
+        </section>
+
+        <!-- Datos del cliente -->
+        <section id="cliente">
+
+            <h2>Datos del cliente</h2>
+
+            <form id="formulario">
+
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" placeholder = "Tu nombre" required>
+
+                <label for="telefono">Teléfono</label>
+                <input type="tel" id="telefono" placeholder="11 1234-5678 " required>
+
+                <label for="pago">Forma de pago</label>
+
+                <select id="pago">
+
+                    <option>Efectivo</option>
+                    <option>Transferencia</option>
+                    <option>Mercado Pago</option>
+
+                </select>
+
+                <label for="observaciones">Observaciones</label>
+
+                <textarea
+                    id="observaciones"
+                    rows="4"
+                    placeholder="Escribí alguna observación..."
+                ></textarea>
+
+            </form>
+
+        </section>
+
+        <!-- Botón -->
+        <section id="acciones">
+
+            <button id="btn-whatsapp">
+                📲 Enviar pedido por WhatsApp
+            </button>
+
+        </section>
+    </main>
+
+    <script src="js/productos.js"></script>
+    <script src="js/carrito.js"></script>
+    <script src="js/whatsapp.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>
