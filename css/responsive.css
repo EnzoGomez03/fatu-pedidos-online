@@ -1,0 +1,50 @@
+/* ============================================
+    TABLET Y DESKTOP (768px en adelante)
+   ============================================ */
+@media (min-width: 768px) {
+
+    header {
+        flex-direction: row;
+        text-align: left;
+        padding: 30px 30px;
+    }
+
+    .logo {
+        width: 100px;
+    }
+
+    .header-texto h1 {
+        font-size: 1.8rem;
+    }
+
+    main {
+        padding: 30px;
+    }
+
+    #formulario {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .campo-full {
+        grid-column: 1 / -1;
+    }
+
+    #btn-whatsapp {
+        width: auto;
+        padding: 16px 40px;
+    }
+}
+
+/* ============================================
+    DESKTOP GRANDE (1024px en adelante)
+   ============================================ */
+@media (min-width: 1024px) {
+
+    .header-texto h1 {
+        font-size: 2.2rem;
+    }
+
+    .productos-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}

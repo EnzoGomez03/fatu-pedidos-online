@@ -9,7 +9,7 @@ const productos = [
         id: 2,
         nombre: "Alfajores de maicena",
         precio: 7000,
-        imagen: "assets/img/alfajores.jpg"
+        imagen: "assets/img/alfajores.jpeg"
     },
     {
         id: 3,

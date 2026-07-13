@@ -1,6 +1,6 @@
 const contenedorProductos = document.querySelector(".productos-container");
 
-function crearContador() {
+function crearContador(producto) {
 
     let cantidad = 0;
 
@@ -13,6 +13,7 @@ function crearContador() {
         if (cantidad > 0) {
             cantidad--;
             cantidadSpan.textContent = cantidad;
+            eliminarProducto(producto);
         }
     });
 
@@ -57,7 +58,7 @@ function crearTarjetaProducto(producto) {
     precio.classList.add("precio");
     precio.textContent = `$${producto.precio}`;
 
-    const contador = crearContador();
+    const contador = crearContador(producto);
 
     tarjeta.appendChild(imagen);
     tarjeta.appendChild(titulo);
