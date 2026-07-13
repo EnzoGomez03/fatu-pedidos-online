@@ -15,12 +15,12 @@ const productos = [
         id: 3,
         nombre: "Palmeritas",
         precio: 5500,
-        imagen: "assets/img/palmeritas.jpg"
+        imagen: "assets/img/palmeritas.jpeg"
     },
     {
         id: 4,
         nombre: "Rosquitas",
         precio: 5000,
-        imagen: "assets/img/rosquitas.jpg"
+        imagen: "assets/img/rosquitas.jpeg"
     }
 ];
