@@ -6,7 +6,7 @@
     header {
         flex-direction: row;
         text-align: left;
-        padding: 30px 30px;
+        padding: var(--esp-lg) var(--esp-xl);
     }
 
     .logo {
@@ -14,11 +14,11 @@
     }
 
     .header-texto h1 {
-        font-size: 1.8rem;
+        font-size: 2rem;
     }
 
     main {
-        padding: 30px;
+        padding: var(--esp-xl);
     }
 
     #formulario {
@@ -31,7 +31,7 @@
 
     #btn-whatsapp {
         width: auto;
-        padding: 16px 40px;
+        padding: var(--esp-sm) var(--esp-xl);
     }
 }
 
@@ -41,7 +41,7 @@
 @media (min-width: 1024px) {
 
     .header-texto h1 {
-        font-size: 2.2rem;
+        font-size: 2.4rem;
     }
 
     .productos-container {

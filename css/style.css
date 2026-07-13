@@ -7,31 +7,51 @@
 
 /* Variables */
 :root {
+    /* Colores de marca */
     --color-principal: #7A0028;
-    --color-principal-hover: #950033;
-    --color-fondo: #F8F5F0;
+    --color-principal-hover: #5C001D;
+    --color-acento: #C98A3B;
+    --color-fondo: #FBF7F2;
     --color-blanco: #FFFFFF;
-    --color-texto: #333333;
-    --color-borde: #E0E0E0;
+    --color-texto: #3A3A3A;
+    --color-texto-suave: #7A7268;
+    --color-borde: #ECE4D8;
+
+    /* Sombra con tinte de marca, en vez de negro genérico */
+    --sombra: 0 6px 20px rgba(122, 0, 40, 0.09);
+    --sombra-hover: 0 10px 28px rgba(122, 0, 40, 0.15);
+
+    /* Escala de espaciado */
+    --esp-xs: 8px;
+    --esp-sm: 12px;
+    --esp-md: 20px;
+    --esp-lg: 32px;
+    --esp-xl: 48px;
+
+    /* Tipografía */
+    --fuente-titulo: 'Fraunces', Georgia, serif;
+    --fuente-texto: 'Nunito', Arial, sans-serif;
+
+    --radio: 14px;
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--fuente-texto);
     background-color: var(--color-fondo);
     color: var(--color-texto);
-    line-height: 1.4;
+    line-height: 1.55;
 }
 
 /* ================= HEADER ================= */
 header {
     background-color: var(--color-principal);
     color: white;
-    padding: 20px 15px;
+    padding: var(--esp-lg) var(--esp-md);
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 12px;
+    gap: var(--esp-sm);
 }
 
 .logo {
@@ -40,49 +60,56 @@ header {
 }
 
 .header-texto h1 {
-    font-size: 1.4rem;
-    margin-bottom: 6px;
+    font-family: var(--fuente-titulo);
+    font-weight: 600;
+    font-size: 1.6rem;
+    margin-bottom: 4px;
+    letter-spacing: 0.3px;
 }
 
 .header-texto p {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    opacity: 0.9;
 }
 
 /* ================= SECCIONES GENERALES ================= */
 main {
-    padding: 20px 15px;
+    padding: var(--esp-lg) var(--esp-md);
     max-width: 1100px;
     margin: 0 auto;
 }
 
 section {
-    margin-bottom: 30px;
+    margin-bottom: var(--esp-xl);
 }
 
 section h2 {
+    font-family: var(--fuente-titulo);
+    font-weight: 600;
     color: var(--color-principal);
-    margin-bottom: 15px;
-    font-size: 1.3rem;
+    margin-bottom: var(--esp-md);
+    font-size: 1.5rem;
 }
 
 /* ================= PRODUCTOS ================= */
 .productos-container {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: var(--esp-md);
 }
 
 .producto {
     background: white;
-    border-radius: 15px;
-    padding: 20px;
+    border-radius: var(--radio);
+    padding: var(--esp-md);
     text-align: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,.08);
-    transition: .3s;
+    box-shadow: var(--sombra);
+    transition: transform .25s ease, box-shadow .25s ease;
 }
 
 .producto:hover {
-    transform: translateY(-5px);
+    transform: translateY(-6px);
+    box-shadow: var(--sombra-hover);
 }
 
 .producto img {
@@ -92,25 +119,38 @@ section h2 {
     object-fit: cover;
     object-position: center;
     border-radius: 10px;
-    margin: 0 auto 15px auto;
+    margin: 0 auto var(--esp-sm) auto;
     display: block;
 }
 
-.producto p {
-    margin: 8px 0;
+.producto .descripcion {
+    color: var(--color-texto-suave);
+    font-size: 0.9rem;
+    margin: 4px 0;
+}
+
+.producto .precio {
+    font-family: var(--fuente-titulo);
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--color-acento);
+    margin: 6px 0 var(--esp-sm) 0;
 }
 
 .producto h3 {
+    font-family: var(--fuente-titulo);
+    font-weight: 600;
     color: var(--color-principal);
-    margin-bottom: 10px;
+    font-size: 1.15rem;
+    margin-bottom: 6px;
 }
 
 .contador {
-    margin-top: 15px;
+    margin-top: var(--esp-sm);
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px;
+    gap: var(--esp-sm);
 }
 
 .contador button {
@@ -122,16 +162,21 @@ section h2 {
     color: white;
     font-size: 20px;
     cursor: pointer;
-    transition: .3s;
+    transition: background .2s ease, transform .1s ease;
 }
 
 .contador button:hover {
     background: var(--color-principal-hover);
 }
 
+.contador button:active {
+    transform: scale(0.92);
+}
+
 .contador span {
+    font-family: var(--fuente-titulo);
     font-size: 20px;
-    font-weight: bold;
+    font-weight: 600;
     width: 25px;
     text-align: center;
 }
@@ -139,33 +184,34 @@ section h2 {
 /* ================= RESUMEN DEL PEDIDO ================= */
 #pedido {
     background: white;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,.08);
+    border-radius: var(--radio);
+    padding: var(--esp-md);
+    box-shadow: var(--sombra);
 }
 
 #lista-pedido p {
-    padding: 8px 0;
+    padding: var(--esp-xs) 0;
     border-bottom: 1px solid var(--color-borde);
 }
 
 #pedido h3 {
-    margin-top: 15px;
+    margin-top: var(--esp-sm);
+    font-family: var(--fuente-titulo);
     color: var(--color-principal);
 }
 
 /* ================= FORMULARIO ================= */
 #cliente {
     background: white;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,.08);
+    border-radius: var(--radio);
+    padding: var(--esp-md);
+    box-shadow: var(--sombra);
 }
 
 #formulario {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 15px;
+    gap: var(--esp-md);
 }
 
 .campo {
@@ -175,25 +221,29 @@ section h2 {
 }
 
 .campo label {
-    font-weight: bold;
+    font-weight: 600;
     font-size: 0.9rem;
+    color: var(--color-texto);
 }
 
 .campo input,
 .campo select,
 .campo textarea {
-    padding: 12px;
-    border: 1px solid var(--color-borde);
+    padding: var(--esp-xs) var(--esp-sm);
+    border: 1.5px solid var(--color-borde);
     border-radius: 8px;
     font-size: 1rem;
-    font-family: inherit;
+    font-family: var(--fuente-texto);
+    background: var(--color-fondo);
+    transition: border-color .2s ease, background .2s ease;
 }
 
 .campo input:focus,
 .campo select:focus,
 .campo textarea:focus {
     outline: none;
-    border-color: var(--color-principal);
+    border-color: var(--color-acento);
+    background: white;
 }
 
 /* ================= BOTÓN WHATSAPP ================= */
@@ -203,17 +253,23 @@ section h2 {
 
 #btn-whatsapp {
     width: 100%;
-    padding: 16px;
+    padding: var(--esp-sm) var(--esp-md);
     border: none;
     border-radius: 10px;
     background: #25D366;
     color: white;
+    font-family: var(--fuente-texto);
     font-size: 1.1rem;
-    font-weight: bold;
+    font-weight: 700;
     cursor: pointer;
-    transition: .3s;
+    box-shadow: 0 6px 16px rgba(37, 211, 102, 0.3);
+    transition: background .2s ease, transform .1s ease;
 }
 
 #btn-whatsapp:hover {
     background: #1DA851;
+}
+
+#btn-whatsapp:active {
+    transform: scale(0.98);
 }

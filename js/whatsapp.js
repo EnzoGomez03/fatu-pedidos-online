@@ -53,31 +53,43 @@ btnWhatsapp.addEventListener("click", () => {
         return;
     }
 
+
+
     if (entreCalles.length < 3) {
         alert("Ingresá entre qué calles está la dirección.");
         return;
     }
 
-    // 4. Armar el mensaje
-    let mensaje = `🧁 *Nuevo pedido - Fatu Delicias y Sabores*\n\n`;
-    mensaje += `📝 Pedido:\n`;
+     // 4. Armar el mensaje
+    const separador = "▬".repeat(18);
 
+    let mensaje = `★ *Nuevo pedido - Fatu Delicias y Sabores*\n`;
+    mensaje += `${separador}\n\n`;
+
+    mensaje += `✎ *Pedido:*\n`;
     carrito.forEach(item => {
-        mensaje += `- ${item.cantidad} x ${item.nombre} = $${item.precio * item.cantidad}\n`;
+        mensaje += `• ${item.cantidad} x ${item.nombre} = $${item.precio * item.cantidad}\n`;
     });
+    mensaje += `\n✦ *Total: $${calcularTotal()}*\n\n`;
 
-    mensaje += `\n💰 Total: $${calcularTotal()}\n\n`;
-    mensaje += `👤 Datos del cliente:\n`;
+    mensaje += `${separador}\n`;
+    mensaje += `● *Cliente:*\n`;
     mensaje += `Nombre: ${nombre}\n`;
-    mensaje += `Teléfono: ${telefono}\n`;
+    mensaje += `Teléfono: ${telefono}\n\n`;
+
+    mensaje += `${separador}\n`;
+    mensaje += `➤ *Entrega:*\n`;
     mensaje += `Dirección: ${direccion}\n`;
     mensaje += `Entre calles: ${entreCalles}\n`;
-    mensaje += `Fecha de entrega: ${fechaEntrega}\n`;
-    mensaje += `Horario: ${horarioEntrega}\n`;
-    mensaje += `Forma de pago: ${pago}\n`;
+    mensaje += `Fecha: ${fechaEntrega}\n`;
+    mensaje += `Horario: ${horarioEntrega}\n\n`;
+
+    mensaje += `${separador}\n`;
+    mensaje += `● Forma de pago: ${pago}\n`;
 
     if (observaciones !== "") {
-        mensaje += `Observaciones: ${observaciones}\n`;
+        mensaje += `\n${separador}\n`;
+        mensaje += `▸ Observaciones: ${observaciones}\n`;
     }
 
     // 5. Armar el link de WhatsApp y abrirlo
