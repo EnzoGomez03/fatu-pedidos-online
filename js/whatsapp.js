@@ -11,6 +11,8 @@ btnWhatsapp.addEventListener("click", () => {
     // 2. Leer los datos del formulario
     const nombre = document.querySelector("#nombre").value.trim();
     const telefono = document.querySelector("#telefono").value.trim();
+    const fechaEntrega = document.querySelector("#fechaEntrega").value;
+    const horarioEntrega = document.querySelector("#horarioEntrega").value;
     const direccion = document.querySelector("#direccion").value.trim();
     const entreCalles = document.querySelector("#EntreCalles").value.trim();
     const pago = document.querySelector("#pago").value;
@@ -27,6 +29,24 @@ btnWhatsapp.addEventListener("click", () => {
         alert("Ingresá un teléfono válido, solo números y sin espacios (mínimo 8 dígitos). Ej: 1165308996");
         return;
     }
+
+
+    if (fechaEntrega === "") {
+    alert("Elegí una fecha de entrega.");
+    return;
+    }
+
+    const minimaValidacion = new Date();
+    minimaValidacion.setDate(minimaValidacion.getDate() + 2);
+    minimaValidacion.setHours(0, 0, 0, 0);
+
+    const fechaElegida = new Date(fechaEntrega + "T00:00:00");
+
+    if (fechaElegida < minimaValidacion) {
+        alert("La fecha de entrega debe ser con un mínimo de 2 días de anticipación.");
+        return;
+    }
+
 
     if (direccion.length < 3) {
         alert("Ingresá la dirección de entrega.");
@@ -52,6 +72,8 @@ btnWhatsapp.addEventListener("click", () => {
     mensaje += `Teléfono: ${telefono}\n`;
     mensaje += `Dirección: ${direccion}\n`;
     mensaje += `Entre calles: ${entreCalles}\n`;
+    mensaje += `Fecha de entrega: ${fechaEntrega}\n`;
+    mensaje += `Horario: ${horarioEntrega}\n`;
     mensaje += `Forma de pago: ${pago}\n`;
 
     if (observaciones !== "") {

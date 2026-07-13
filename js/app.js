@@ -76,3 +76,15 @@ productos.forEach(producto => {
     contenedorProductos.appendChild(tarjeta);
 
 });
+
+// Bloquear que el usuario elija una fecha con menos de 2 días de anticipación
+const inputFecha = document.querySelector("#fechaEntrega");
+
+const fechaMinima = new Date();
+fechaMinima.setDate(fechaMinima.getDate() + 2);
+
+const anio = fechaMinima.getFullYear();
+const mes = String(fechaMinima.getMonth() + 1).padStart(2, "0");
+const dia = String(fechaMinima.getDate()).padStart(2, "0");
+
+inputFecha.min = `${anio}-${mes}-${dia}`;
