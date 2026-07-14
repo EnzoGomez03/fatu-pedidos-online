@@ -18,8 +18,8 @@
     --color-borde: #ECE4D8;
 
     /* Sombra con tinte de marca, en vez de negro genérico */
-    --sombra: 0 6px 20px rgba(122, 0, 40, 0.09);
-    --sombra-hover: 0 10px 28px rgba(122, 0, 40, 0.15);
+    --sombra: 0 2px 8px rgba(122, 0, 40, 0.12),0 12px 32px rgba(122,0,40,0.16);
+    --sombra-hover: 0 4px 12px rgba(122, 0, 40, 0.18), 0 20px 44px rgba(122, 0 , 40, 0.22);
 
     /* Escala de espaciado */
     --esp-xs: 8px;

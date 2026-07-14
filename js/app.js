@@ -100,9 +100,7 @@ function crearTarjetaProducto(producto) {
             imagen.src = varianteActual.imagen;
             imagen.alt = varianteActual.nombre;
 
-            // Ya NO reseteamos a 0 "a mano": mostramos la cantidad real
-            // que esa variante ya tenga en el carrito (puede ser 0, o puede
-            // ser un número si el cliente ya había elegido esta antes)
+            //No se resetea a 0, se muestra la cantidad real. Que puede ser 0 o puede ser un numero con una cantidad de variantes escogidas
             actualizarCantidadMostrada();
         });
 
