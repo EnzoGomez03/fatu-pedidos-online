@@ -334,3 +334,50 @@ Esto es con las 4 opciones visibles sin despliegue
     color: white;
     font-weight: 600;
 }
+
+
+/*================ Carrito flotante========================*/
+.carrito-flotante {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    background: var(--color-principal);
+    font-size: 26px;
+    cursor: pointer;
+    box-shadow: var(--sombra-hover);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .15s ease;
+}
+
+.carrito-flotante:hover {
+    transform: scale(1.08);
+}
+
+.carrito-flotante:active {
+    transform: scale(0.95);
+}
+
+.carrito-contador {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: var(--color-acento);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    min-width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    font-family: var(--fuente-texto);
+}

@@ -34,10 +34,12 @@ function calcularTotal() {
 function actualizarCarrito() {
     const listaPedido = document.querySelector("#lista-pedido");
     const totalSpan = document.querySelector("#total");
+    const contadorFlotante = document.querySelector("#carrito-contador");
 
     if (carrito.length === 0) {
         listaPedido.innerHTML = "<p>Tu carrito está vacío.</p>";
         totalSpan.textContent = 0;
+        contadorFlotante.textContent = 0;
         return;
     }
 
@@ -50,7 +52,15 @@ function actualizarCarrito() {
     });
 
     totalSpan.textContent = calcularTotal();
+
+    const totalItems = carrito.reduce((total, item) => total + item.cantidad, 0);
+    contadorFlotante.textContent = totalItems;
 }
+
+// Al tocar el botón flotante, hace scroll suave hasta el resumen del pedido
+document.querySelector("#carrito-flotante").addEventListener("click", () => {
+    document.querySelector("#pedido").scrollIntoView({ behavior: "smooth" });
+});
 
 
 function obtenerCantidadEnCarrito(id) {
