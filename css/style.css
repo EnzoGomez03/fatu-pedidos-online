@@ -278,6 +278,8 @@ section h2 {
 
 /*======================BOTON DE VARIANTES=====================*/
 
+/*
+Esto es con las 4 opciones visibles sin despliegue 
 .selector-variantes {
     display: flex;
     justify-content: center;
@@ -296,7 +298,31 @@ section h2 {
     font-family: var(--fuente-texto);
     cursor: pointer;
     transition: .2s;
+} */
+
+/*Esto es con despliegue*/
+.selector-variantes {
+    width: 100%;
+    max-width: 220px;
+    margin: var(--esp-sm) auto 0 auto;
+    display: block;
+    padding: 8px 12px;
+    border: 1.5px solid var(--color-borde);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: var(--fuente-texto);
+    background: white;
+    color: var(--color-texto);
+    cursor: pointer;
 }
+
+.selector-variantes:focus {
+    outline: none;
+    border-color: var(--color-acento);
+}
+
+
+
 
 .btn-variante:hover {
     border-color: var(--color-acento);

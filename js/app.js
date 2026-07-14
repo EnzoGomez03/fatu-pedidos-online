@@ -19,7 +19,6 @@ function crearTarjetaProducto(producto) {
     precio.classList.add("precio");
     precio.textContent = `$${producto.precio}`;
 
-    // Si el producto tiene variantes, arrancamos mostrando la primera
     let varianteActual = producto.variantes ? producto.variantes[0] : null;
 
     if (varianteActual) {
@@ -30,11 +29,16 @@ function crearTarjetaProducto(producto) {
         imagen.alt = producto.nombre;
     }
 
+    // El id "real" que usa el carrito para esta tarjeta, según la variante elegida
+    function idActual() {
+        return varianteActual ? `${producto.id}-${varianteActual.id}` : producto.id;
+    }
+
     // Arma el objeto que se manda al carrito, según la variante elegida en este momento
     function armarProductoParaCarrito() {
         if (varianteActual) {
             return {
-                id: `${producto.id}-${varianteActual.id}`,
+                id: idActual(),
                 nombre: `${producto.nombre} (${varianteActual.nombre})`,
                 precio: producto.precio
             };
@@ -43,30 +47,32 @@ function crearTarjetaProducto(producto) {
     }
 
     // ---------- Contador (+/-) ----------
-    let cantidad = 0;
-
     const contador = document.createElement("div");
     contador.classList.add("contador");
 
     const cantidadSpan = document.createElement("span");
-    cantidadSpan.textContent = cantidad;
+
+    // El número mostrado siempre se consulta al carrito real, nunca se "inventa" por separado
+    function actualizarCantidadMostrada() {
+        cantidadSpan.textContent = obtenerCantidadEnCarrito(idActual());
+    }
+
+    actualizarCantidadMostrada();
 
     const btnMenos = document.createElement("button");
     btnMenos.textContent = "-";
     btnMenos.addEventListener("click", () => {
-        if (cantidad > 0) {
-            cantidad--;
-            cantidadSpan.textContent = cantidad;
+        if (obtenerCantidadEnCarrito(idActual()) > 0) {
             eliminarProducto(armarProductoParaCarrito());
+            actualizarCantidadMostrada();
         }
     });
 
     const btnMas = document.createElement("button");
     btnMas.textContent = "+";
     btnMas.addEventListener("click", () => {
-        cantidad++;
-        cantidadSpan.textContent = cantidad;
         agregarProducto(armarProductoParaCarrito());
+        actualizarCantidadMostrada();
     });
 
     contador.appendChild(btnMenos);
@@ -77,34 +83,27 @@ function crearTarjetaProducto(producto) {
 
     // ---------- Selector de variantes (solo si el producto tiene) ----------
     if (producto.variantes) {
-        const selector = document.createElement("div");
+        const selector = document.createElement("select");
         selector.classList.add("selector-variantes");
 
         producto.variantes.forEach(variante => {
-            const btnVariante = document.createElement("button");
-            btnVariante.textContent = variante.nombre;
-            btnVariante.classList.add("btn-variante");
+            const opcion = document.createElement("option");
+            opcion.value = variante.id;
+            opcion.textContent = variante.nombre;
+            selector.appendChild(opcion);
+        });
 
-            if (variante.id === varianteActual.id) {
-                btnVariante.classList.add("activo");
-            }
+        selector.addEventListener("change", () => {
+            const idElegido = selector.value;
+            varianteActual = producto.variantes.find(v => v.id === idElegido);
 
-            btnVariante.addEventListener("click", () => {
-                varianteActual = variante;
-                imagen.src = variante.imagen;
-                imagen.alt = variante.nombre;
+            imagen.src = varianteActual.imagen;
+            imagen.alt = varianteActual.nombre;
 
-                selector.querySelectorAll(".btn-variante").forEach(b => {
-                    b.classList.remove("activo");
-                });
-                btnVariante.classList.add("activo");
-
-                // Cambiamos de variante: reiniciamos la cantidad a 0
-                cantidad = 0;
-                cantidadSpan.textContent = cantidad;
-            });
-
-            selector.appendChild(btnVariante);
+            // Ya NO reseteamos a 0 "a mano": mostramos la cantidad real
+            // que esa variante ya tenga en el carrito (puede ser 0, o puede
+            // ser un número si el cliente ya había elegido esta antes)
+            actualizarCantidadMostrada();
         });
 
         tarjeta.appendChild(selector);

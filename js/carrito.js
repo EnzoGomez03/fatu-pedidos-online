@@ -51,3 +51,9 @@ function actualizarCarrito() {
 
     totalSpan.textContent = calcularTotal();
 }
+
+
+function obtenerCantidadEnCarrito(id) {
+    const item = carrito.find(item => item.id === id);
+    return item ? item.cantidad : 0;
+}
