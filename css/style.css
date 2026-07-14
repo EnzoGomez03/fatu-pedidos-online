@@ -105,6 +105,8 @@ section h2 {
     text-align: center;
     box-shadow: var(--sombra);
     transition: transform .25s ease, box-shadow .25s ease;
+    display: flex;           
+    flex-direction: column;    
 }
 
 .producto:hover {
@@ -146,11 +148,12 @@ section h2 {
 }
 
 .contador {
-    margin-top: var(--esp-sm);
+    margin-top: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: var(--esp-sm);
+    padding-top: var(--esp-sm);
 }
 
 .contador button {
@@ -443,4 +446,42 @@ Esto es con las 4 opciones visibles sin despliegue
 
 .sugerencia-item:hover {
     background: var(--color-fondo);
+}
+
+
+
+/*==============================Controles de linea de pedido============ */
+.linea-pedido {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--esp-xs) 0;
+    border-bottom: 1px solid var(--color-borde);
+    gap: var(--esp-sm);
+}
+
+.linea-pedido span {
+    font-size: 0.9rem;
+}
+
+.controles-linea {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.controles-linea button {
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 50%;
+    background: var(--color-principal);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background .2s ease;
+}
+
+.controles-linea button:hover {
+    background: var(--color-principal-hover);
 }

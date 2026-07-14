@@ -31,6 +31,11 @@ function calcularTotal() {
     return carrito.reduce((total, item) => total + item.precio * item.cantidad, 0);
 }
 
+function obtenerCantidadEnCarrito(id) {
+    const item = carrito.find(item => item.id === id);
+    return item ? item.cantidad : 0;
+}
+
 function actualizarCarrito() {
     const listaPedido = document.querySelector("#lista-pedido");
     const totalSpan = document.querySelector("#total");
@@ -46,8 +51,33 @@ function actualizarCarrito() {
     listaPedido.innerHTML = "";
 
     carrito.forEach(item => {
-        const linea = document.createElement("p");
-        linea.textContent = `${item.cantidad} x ${item.nombre} = $${item.precio * item.cantidad}`;
+        const linea = document.createElement("div");
+        linea.classList.add("linea-pedido");
+
+        const texto = document.createElement("span");
+        texto.textContent = `${item.cantidad} x ${item.nombre} = $${item.precio * item.cantidad}`;
+
+        const controles = document.createElement("div");
+        controles.classList.add("controles-linea");
+
+        const btnMenos = document.createElement("button");
+        btnMenos.textContent = "-";
+        btnMenos.addEventListener("click", () => {
+            eliminarProducto(item);
+        });
+
+        const btnMas = document.createElement("button");
+        btnMas.textContent = "+";
+        btnMas.addEventListener("click", () => {
+            agregarProducto(item);
+        });
+
+        controles.appendChild(btnMenos);
+        controles.appendChild(btnMas);
+
+        linea.appendChild(texto);
+        linea.appendChild(controles);
+
         listaPedido.appendChild(linea);
     });
 
@@ -55,15 +85,14 @@ function actualizarCarrito() {
 
     const totalItems = carrito.reduce((total, item) => total + item.cantidad, 0);
     contadorFlotante.textContent = totalItems;
+
+    // Avisamos a todas las tarjetas de producto que vuelvan a mirar el carrito real,
+    // por si el cambio vino de acá (resumen) y no de la tarjeta misma
+    if (typeof sincronizarTodosLosContadores === "function") {
+        sincronizarTodosLosContadores();
+    }
 }
 
-// Al tocar el botón flotante, hace scroll suave hasta el resumen del pedido
 document.querySelector("#carrito-flotante").addEventListener("click", () => {
     document.querySelector("#pedido").scrollIntoView({ behavior: "smooth" });
 });
-
-
-function obtenerCantidadEnCarrito(id) {
-    const item = carrito.find(item => item.id === id);
-    return item ? item.cantidad : 0;
-}

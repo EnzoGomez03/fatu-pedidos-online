@@ -1,5 +1,13 @@
 const contenedorProductos = document.querySelector(".productos-container");
 
+// Lista compartida de "funciones para refrescar cada tarjeta".
+// Cada tarjeta se anota acá cuando se crea.
+const actualizadoresDeCantidad = [];
+
+function sincronizarTodosLosContadores() {
+    actualizadoresDeCantidad.forEach(actualizar => actualizar());
+}
+
 
 function crearTarjetaProducto(producto) {
 
@@ -29,12 +37,10 @@ function crearTarjetaProducto(producto) {
         imagen.alt = producto.nombre;
     }
 
-    // El id "real" que usa el carrito para esta tarjeta, según la variante elegida
     function idActual() {
         return varianteActual ? `${producto.id}-${varianteActual.id}` : producto.id;
     }
 
-    // Arma el objeto que se manda al carrito, según la variante elegida en este momento
     function armarProductoParaCarrito() {
         if (varianteActual) {
             return {
@@ -52,12 +58,15 @@ function crearTarjetaProducto(producto) {
 
     const cantidadSpan = document.createElement("span");
 
-    // El número mostrado siempre se consulta al carrito real, nunca se "inventa" por separado
     function actualizarCantidadMostrada() {
         cantidadSpan.textContent = obtenerCantidadEnCarrito(idActual());
     }
 
     actualizarCantidadMostrada();
+
+    // Esta tarjeta se anota en la lista compartida, para que la avisen
+    // cuando el carrito cambie desde otro lado (ej: el resumen del pedido)
+    actualizadoresDeCantidad.push(actualizarCantidadMostrada);
 
     const btnMenos = document.createElement("button");
     btnMenos.textContent = "-";
@@ -81,7 +90,6 @@ function crearTarjetaProducto(producto) {
 
     tarjeta.appendChild(imagen);
 
-    // ---------- Selector de variantes (solo si el producto tiene) ----------
     if (producto.variantes) {
         const selector = document.createElement("select");
         selector.classList.add("selector-variantes");
@@ -100,7 +108,6 @@ function crearTarjetaProducto(producto) {
             imagen.src = varianteActual.imagen;
             imagen.alt = varianteActual.nombre;
 
-            //No se resetea a 0, se muestra la cantidad real. Que puede ser 0 o puede ser un numero con una cantidad de variantes escogidas
             actualizarCantidadMostrada();
         });
 
