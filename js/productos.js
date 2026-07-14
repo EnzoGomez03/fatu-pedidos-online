@@ -3,7 +3,13 @@ const productos = [
         id: 1,
         nombre: "Conitos de dulce de leche",
         precio: 6500,
-        imagen: "assets/img/conitosFatu.jpeg"
+        imagen: "assets/img/conitosFatu.jpeg",
+        variantes: [
+            { id: "negro", nombre: "Chocolate negro", imagen: "assets/img/conitosFatu.jpeg" },
+            { id: "blanco", nombre: "Chocolate blanco", imagen: "assets/img/ConitosBlanco.jpeg" },
+            { id: "bandera", nombre: "Bandera Argentina", imagen: "assets/img/ConitosBandera.jpeg" },
+            {id : "rosa",nombre : "Chocolate rosa",imagen: "assets/img/ConitosRosa.jpeg"}
+        ]
     },
     {
         id: 2,

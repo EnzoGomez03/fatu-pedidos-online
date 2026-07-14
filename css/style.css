@@ -273,3 +273,38 @@ section h2 {
 #btn-whatsapp:active {
     transform: scale(0.98);
 }
+
+
+
+/*======================BOTON DE VARIANTES=====================*/
+
+.selector-variantes {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: var(--esp-sm);
+}
+
+.btn-variante {
+    padding: 6px 12px;
+    border: 1.5px solid var(--color-borde);
+    border-radius: 20px;
+    background: white;
+    color: var(--color-texto);
+    font-size: 0.8rem;
+    font-family: var(--fuente-texto);
+    cursor: pointer;
+    transition: .2s;
+}
+
+.btn-variante:hover {
+    border-color: var(--color-acento);
+}
+
+.btn-variante.activo {
+    background: var(--color-principal);
+    border-color: var(--color-principal);
+    color: white;
+    font-weight: 600;
+}
