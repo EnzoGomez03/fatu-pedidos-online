@@ -8,6 +8,13 @@ btnWhatsapp.addEventListener("click", () => {
         return;
     }
 
+
+    // 1.b Validar pedido mínimo (12 bandejas en total)
+    if (calcularCantidadTotal() < PEDIDO_MINIMO_BANDEJAS) {
+        alert(`El pedido mínimo es de ${PEDIDO_MINIMO_BANDEJAS} bandejas en total. Te faltan ${PEDIDO_MINIMO_BANDEJAS - calcularCantidadTotal()}.`);
+        return;
+    }
+
     // 2. Leer los datos del formulario
     const nombre = document.querySelector("#nombre").value.trim();
     const telefono = document.querySelector("#telefono").value.trim();
@@ -30,33 +37,36 @@ btnWhatsapp.addEventListener("click", () => {
         return;
     }
 
+    if (direccion.length < 3) {
+        alert("Ingresá la dirección de entrega.");
+        return;
+    }
+
+    if (entreCalles.length < 3) {
+        alert("Ingresá entre qué calles está la dirección.");
+        return;
+    }
 
     if (fechaEntrega === "") {
-    alert("Elegí una fecha de entrega.");
-    return;
+        alert("Elegí una fecha de entrega.");
+        return;
+    }
+
+    const fechaElegida = new Date(fechaEntrega + "T00:00:00");
+
+    // Revalidar días bloqueados (domingo/lunes), por si el valor se forzó a mano
+    const diaSemana = fechaElegida.getDay();
+    if (diaSemana === 0 || diaSemana === 1) {
+        alert("No hacemos entregas los domingos ni los lunes. Elegí una fecha de martes a sábado.");
+        return;
     }
 
     const minimaValidacion = new Date();
     minimaValidacion.setDate(minimaValidacion.getDate() + 2);
     minimaValidacion.setHours(0, 0, 0, 0);
 
-    const fechaElegida = new Date(fechaEntrega + "T00:00:00");
-
     if (fechaElegida < minimaValidacion) {
         alert("La fecha de entrega debe ser con un mínimo de 2 días de anticipación.");
-        return;
-    }
-
-
-    if (direccion.length < 3) {
-        alert("Ingresá la dirección de entrega.");
-        return;
-    }
-
-
-
-    if (entreCalles.length < 3) {
-        alert("Ingresá entre qué calles está la dirección.");
         return;
     }
 
@@ -93,7 +103,7 @@ btnWhatsapp.addEventListener("click", () => {
     }
 
     // 5. Armar el link de WhatsApp y abrirlo
-    const numero = "541171328324"; // 👈 tu número real
+    const numero = "541171328324";
     const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
 
     window.open(url, "_blank");

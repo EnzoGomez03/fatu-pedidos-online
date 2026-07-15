@@ -1,5 +1,10 @@
 const carrito = [];
 
+// Reglas de negocio (todas juntas acá, para poder ajustarlas fácil el día de mañana)
+const PEDIDO_MINIMO_BANDEJAS = 12;
+const UMBRAL_DESCUENTO_BANDEJAS = 100;
+const PORCENTAJE_DESCUENTO = 0.20;
+
 function agregarProducto(producto) {
     const productoExistente = carrito.find(item => item.id === producto.id);
     if (productoExistente) {
@@ -31,6 +36,21 @@ function calcularTotal() {
     return carrito.reduce((total, item) => total + item.precio * item.cantidad, 0);
 }
 
+function calcularCantidadTotal() {
+    return carrito.reduce((total, item) => total + item.cantidad, 0);
+}
+
+function calcularDescuento() {
+    if (calcularCantidadTotal() >= UMBRAL_DESCUENTO_BANDEJAS) {
+        return calcularTotal() * PORCENTAJE_DESCUENTO;
+    }
+    return 0;
+}
+
+function calcularTotalFinal() {
+    return calcularTotal() - calcularDescuento();
+}
+
 function obtenerCantidadEnCarrito(id) {
     const item = carrito.find(item => item.id === id);
     return item ? item.cantidad : 0;
@@ -40,11 +60,20 @@ function actualizarCarrito() {
     const listaPedido = document.querySelector("#lista-pedido");
     const totalSpan = document.querySelector("#total");
     const contadorFlotante = document.querySelector("#carrito-contador");
+    const estadoMinimo = document.querySelector("#estado-minimo");
+    const filaSubtotal = document.querySelector("#fila-subtotal");
+    const filaDescuento = document.querySelector("#fila-descuento");
+    const subtotalSpan = document.querySelector("#subtotal");
+    const descuentoSpan = document.querySelector("#descuento");
 
     if (carrito.length === 0) {
         listaPedido.innerHTML = "<p>Tu carrito está vacío.</p>";
         totalSpan.textContent = 0;
         contadorFlotante.textContent = 0;
+        estadoMinimo.textContent = "";
+        estadoMinimo.classList.remove("aviso-minimo");
+        filaSubtotal.style.display = "none";
+        filaDescuento.style.display = "none";
         return;
     }
 
@@ -81,13 +110,35 @@ function actualizarCarrito() {
         listaPedido.appendChild(linea);
     });
 
-    totalSpan.textContent = calcularTotal();
+    const totalItems = calcularCantidadTotal();
+    const subtotal = calcularTotal();
 
-    const totalItems = carrito.reduce((total, item) => total + item.cantidad, 0);
+    // Aviso de pedido mínimo
+    if (totalItems < PEDIDO_MINIMO_BANDEJAS) {
+        const faltan = PEDIDO_MINIMO_BANDEJAS - totalItems;
+        estadoMinimo.textContent = `Te faltan ${faltan} bandeja${faltan === 1 ? "" : "s"} para alcanzar el pedido mínimo de ${PEDIDO_MINIMO_BANDEJAS}.`;
+        estadoMinimo.classList.add("aviso-minimo");
+    } else {
+        estadoMinimo.textContent = "";
+        estadoMinimo.classList.remove("aviso-minimo");
+    }
+
+    // Descuento por volumen
+    if (totalItems >= UMBRAL_DESCUENTO_BANDEJAS) {
+        const descuento = calcularDescuento();
+        filaSubtotal.style.display = "block";
+        filaDescuento.style.display = "block";
+        subtotalSpan.textContent = subtotal.toFixed(0);
+        descuentoSpan.textContent = descuento.toFixed(0);
+        totalSpan.textContent = calcularTotalFinal().toFixed(0);
+    } else {
+        filaSubtotal.style.display = "none";
+        filaDescuento.style.display = "none";
+        totalSpan.textContent = subtotal.toFixed(0);
+    }
+
     contadorFlotante.textContent = totalItems;
 
-    // Avisamos a todas las tarjetas de producto que vuelvan a mirar el carrito real,
-    // por si el cambio vino de acá (resumen) y no de la tarjeta misma
     if (typeof sincronizarTodosLosContadores === "function") {
         sincronizarTodosLosContadores();
     }

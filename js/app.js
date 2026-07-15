@@ -138,6 +138,20 @@ const inputFecha = document.querySelector("#fechaEntrega");
 const fechaMinima = new Date();
 fechaMinima.setDate(fechaMinima.getDate() + 2);
 
+// Bloquear domingos (0) y lunes (1) además del mínimo de 2 días
+inputFecha.addEventListener("change", () => {
+    if (inputFecha.value === "") return;
+
+    const fechaElegida = new Date(inputFecha.value + "T00:00:00");
+    const diaSemana = fechaElegida.getDay(); // 0 = domingo, 1 = lunes
+
+    if (diaSemana === 0 || diaSemana === 1) {
+        alert("No hacemos entregas los domingos ni los lunes. Elegí una fecha de martes a sábado.");
+        inputFecha.value = "";
+    }
+});
+
+
 const anio = fechaMinima.getFullYear();
 const mes = String(fechaMinima.getMonth() + 1).padStart(2, "0");
 const dia = String(fechaMinima.getDate()).padStart(2, "0");

@@ -485,3 +485,24 @@ Esto es con las 4 opciones visibles sin despliegue
 .controles-linea button:hover {
     background: var(--color-principal-hover);
 }
+
+
+/*============Aviso de minimo de compra*/
+.aviso-minimo {
+    color: var(--color-principal);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin: var(--esp-xs) 0;
+}
+
+#fila-subtotal,
+#fila-descuento {
+    font-size: 0.9rem;
+    color: var(--color-texto-suave);
+    margin: 4px 0;
+}
+
+#fila-descuento {
+    color: var(--color-acento);
+    font-weight: 600;
+}
