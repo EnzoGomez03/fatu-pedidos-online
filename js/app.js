@@ -1,7 +1,5 @@
 const contenedorProductos = document.querySelector(".productos-container");
 
-// Lista compartida de "funciones para refrescar cada tarjeta".
-// Cada tarjeta se anota acá cuando se crea.
 const actualizadoresDeCantidad = [];
 
 function sincronizarTodosLosContadores() {
@@ -21,7 +19,7 @@ function crearTarjetaProducto(producto) {
 
     const descripcion = document.createElement("p");
     descripcion.classList.add("descripcion");
-    descripcion.textContent = "Bandeja x6";
+    descripcion.textContent = producto.descripcion;
 
     const precio = document.createElement("p");
     precio.classList.add("precio");
@@ -52,21 +50,20 @@ function crearTarjetaProducto(producto) {
         return producto;
     }
 
-    // ---------- Contador (+/-) ----------
+    // ---------- Contador (-, input editable, +) ----------
     const contador = document.createElement("div");
     contador.classList.add("contador");
 
-    const cantidadSpan = document.createElement("span");
+    const cantidadInput = document.createElement("input");
+    cantidadInput.type = "number";
+    cantidadInput.min = "0";
+    cantidadInput.classList.add("cantidad-input");
 
     function actualizarCantidadMostrada() {
-        cantidadSpan.textContent = obtenerCantidadEnCarrito(idActual());
+        cantidadInput.value = obtenerCantidadEnCarrito(idActual());
     }
 
     actualizarCantidadMostrada();
-
-    // Esta tarjeta se anota en la lista compartida, para que la avisen
-    // cuando el carrito cambie desde otro lado (ej: el resumen del pedido)
-    actualizadoresDeCantidad.push(actualizarCantidadMostrada);
 
     const btnMenos = document.createElement("button");
     btnMenos.textContent = "-";
@@ -84,9 +81,32 @@ function crearTarjetaProducto(producto) {
         actualizarCantidadMostrada();
     });
 
+    // Cuando el usuario escribe un número directo y sale del campo (o presiona Enter)
+    cantidadInput.addEventListener("change", () => {
+        const valorEscrito = parseInt(cantidadInput.value, 10);
+        establecerCantidadEnCarrito(armarProductoParaCarrito(), valorEscrito);
+        actualizarCantidadMostrada();
+    });
+
     contador.appendChild(btnMenos);
-    contador.appendChild(cantidadSpan);
+    contador.appendChild(cantidadInput);
     contador.appendChild(btnMas);
+
+    // ---------- Botones de salto rápido (+5 / +10) ----------
+    const saltosRapidos = document.createElement("div");
+    saltosRapidos.classList.add("saltos-rapidos");
+
+    [5, 10].forEach(salto => {
+        const btnSalto = document.createElement("button");
+        btnSalto.textContent = `+${salto}`;
+        btnSalto.classList.add("btn-salto");
+        btnSalto.addEventListener("click", () => {
+            const cantidadActual = obtenerCantidadEnCarrito(idActual());
+            establecerCantidadEnCarrito(armarProductoParaCarrito(), cantidadActual + salto);
+            actualizarCantidadMostrada();
+        });
+        saltosRapidos.appendChild(btnSalto);
+    });
 
     tarjeta.appendChild(imagen);
 
@@ -118,6 +138,7 @@ function crearTarjetaProducto(producto) {
     tarjeta.appendChild(descripcion);
     tarjeta.appendChild(precio);
     tarjeta.appendChild(contador);
+    tarjeta.appendChild(saltosRapidos);
 
     return tarjeta;
 }
@@ -132,28 +153,25 @@ productos.forEach(producto => {
 });
 
 
-// Bloquear que el usuario elija una fecha con menos de 2 días de anticipación
 const inputFecha = document.querySelector("#fechaEntrega");
 
 const fechaMinima = new Date();
 fechaMinima.setDate(fechaMinima.getDate() + 2);
-
-// Bloquear domingos (0) y lunes (1) además del mínimo de 2 días
-inputFecha.addEventListener("change", () => {
-    if (inputFecha.value === "") return;
-
-    const fechaElegida = new Date(inputFecha.value + "T00:00:00");
-    const diaSemana = fechaElegida.getDay(); // 0 = domingo, 1 = lunes
-
-    if (diaSemana === 0 || diaSemana === 1) {
-        alert("No hacemos entregas los domingos ni los lunes. Elegí una fecha de martes a sábado.");
-        inputFecha.value = "";
-    }
-});
-
 
 const anio = fechaMinima.getFullYear();
 const mes = String(fechaMinima.getMonth() + 1).padStart(2, "0");
 const dia = String(fechaMinima.getDate()).padStart(2, "0");
 
 inputFecha.min = `${anio}-${mes}-${dia}`;
+
+inputFecha.addEventListener("change", () => {
+    if (inputFecha.value === "") return;
+
+    const fechaElegida = new Date(inputFecha.value + "T00:00:00");
+    const diaSemana = fechaElegida.getDay();
+
+    if (diaSemana === 0 || diaSemana === 1) {
+        alert("No hacemos entregas los domingos ni los lunes. Elegí una fecha de martes a sábado.");
+        inputFecha.value = "";
+    }
+});

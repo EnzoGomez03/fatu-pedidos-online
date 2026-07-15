@@ -506,3 +506,53 @@ Esto es con las 4 opciones visibles sin despliegue
     color: var(--color-acento);
     font-weight: 600;
 }
+
+
+.cantidad-input {
+    width: 55px;
+    height: 44px;
+    text-align: center;
+    border: 1.5px solid var(--color-borde);
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: var(--fuente-texto);
+    color: var(--color-texto);
+    /* Sacamos las flechitas nativas del navegador para un look más limpio */
+    -moz-appearance: textfield;
+}
+
+.cantidad-input::-webkit-outer-spin-button,
+.cantidad-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.cantidad-input:focus {
+    outline: none;
+    border-color: var(--color-acento);
+}
+
+.saltos-rapidos {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.btn-salto {
+    padding: 6px 14px;
+    border: 1.5px solid var(--color-borde);
+    border-radius: 20px;
+    background: white;
+    color: var(--color-texto);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.btn-salto:hover {
+    background: var(--color-fondo);
+    border-color: var(--color-acento);
+}

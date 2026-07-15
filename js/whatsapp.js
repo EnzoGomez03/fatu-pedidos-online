@@ -80,7 +80,15 @@ btnWhatsapp.addEventListener("click", () => {
     carrito.forEach(item => {
         mensaje += `• ${item.cantidad} x ${item.nombre} = $${item.precio * item.cantidad}\n`;
     });
-    mensaje += `\n✦ *Total: $${calcularTotal()}*\n\n`;
+    const subtotal = calcularTotal();
+    const descuento = calcularDescuento();
+
+    if (descuento > 0) {
+        mensaje += `\nSubtotal: $${subtotal.toFixed(0)}\n`;
+        mensaje += `Descuento por volumen (20%): -$${descuento.toFixed(0)}\n`;
+    }
+
+    mensaje += `\n✦ *Total: $${calcularTotalFinal().toFixed(0)}*\n\n`;
 
     mensaje += `${separador}\n`;
     mensaje += `● *Cliente:*\n`;
@@ -107,4 +115,6 @@ btnWhatsapp.addEventListener("click", () => {
     const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
 
     window.open(url, "_blank");
+
+
 });

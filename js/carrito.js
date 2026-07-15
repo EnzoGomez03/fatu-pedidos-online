@@ -32,6 +32,29 @@ function eliminarProducto(producto) {
     actualizarCarrito();
 }
 
+function establecerCantidadEnCarrito(producto, cantidadNueva) {
+    // Nos aseguramos de que sea un número entero válido, nunca negativo
+    cantidadNueva = Math.max(0, Math.floor(cantidadNueva) || 0);
+
+    const productoExistente = carrito.find(item => item.id === producto.id);
+
+    if (cantidadNueva === 0) {
+        // Si la cantidad nueva es 0, sacamos el producto del carrito directamente
+        if (productoExistente) {
+            const index = carrito.findIndex(item => item.id === producto.id);
+            carrito.splice(index, 1);
+        }
+    } else if (productoExistente) {
+        productoExistente.cantidad = cantidadNueva;
+    } else {
+        carrito.push({ ...producto, cantidad: cantidadNueva });
+    }
+
+    actualizarCarrito();
+}
+
+
+
 function calcularTotal() {
     return carrito.reduce((total, item) => total + item.precio * item.cantidad, 0);
 }
