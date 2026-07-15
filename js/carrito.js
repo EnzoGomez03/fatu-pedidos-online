@@ -3,7 +3,7 @@ const carrito = [];
 // Reglas de negocio (todas juntas acá, para poder ajustarlas fácil el día de mañana)
 const PEDIDO_MINIMO_BANDEJAS = 12;
 const UMBRAL_DESCUENTO_BANDEJAS = 100;
-const PORCENTAJE_DESCUENTO = 0.20;
+const PORCENTAJE_DESCUENTO = 0.10;
 
 function agregarProducto(producto) {
     const productoExistente = carrito.find(item => item.id === producto.id);

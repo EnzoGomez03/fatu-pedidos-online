@@ -78,14 +78,14 @@ btnWhatsapp.addEventListener("click", () => {
 
     mensaje += `✎ *Pedido:*\n`;
     carrito.forEach(item => {
-        mensaje += `• ${item.cantidad} x ${item.nombre} = $${item.precio * item.cantidad}\n`;
+        mensaje += `• ${item.cantidad} x ${item.nombrePedido} = $${item.precio * item.cantidad}\n`;
     });
     const subtotal = calcularTotal();
     const descuento = calcularDescuento();
 
     if (descuento > 0) {
         mensaje += `\nSubtotal: $${subtotal.toFixed(0)}\n`;
-        mensaje += `Descuento por volumen (20%): -$${descuento.toFixed(0)}\n`;
+        mensaje += `Descuento por volumen (10%): -$${descuento.toFixed(0)}\n`;
     }
 
     mensaje += `\n✦ *Total: $${calcularTotalFinal().toFixed(0)}*\n\n`;

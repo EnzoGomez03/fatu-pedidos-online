@@ -40,14 +40,13 @@ function crearTarjetaProducto(producto) {
     }
 
     function armarProductoParaCarrito() {
-        if (varianteActual) {
-            return {
-                id: idActual(),
-                nombre: `${producto.nombre} (${varianteActual.nombre})`,
-                precio: producto.precio
-            };
-        }
-        return producto;
+        return {
+            id: idActual(),
+            nombre: varianteActual
+                ? `${producto.nombrePedido} (${varianteActual.nombre})`
+                : producto.nombrePedido,
+            precio: producto.precio
+        };
     }
 
     // ---------- Contador (-, input editable, +) ----------
