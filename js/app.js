@@ -80,7 +80,6 @@ function crearTarjetaProducto(producto) {
         actualizarCantidadMostrada();
     });
 
-    // Cuando el usuario escribe un número directo y sale del campo (o presiona Enter)
     cantidadInput.addEventListener("change", () => {
         const valorEscrito = parseInt(cantidadInput.value, 10);
         establecerCantidadEnCarrito(armarProductoParaCarrito(), valorEscrito);
@@ -143,15 +142,57 @@ function crearTarjetaProducto(producto) {
 }
 
 
-productos.forEach(producto => {
+// ---------- Filtros de categoría ----------
 
-    const tarjeta = crearTarjetaProducto(producto);
+function obtenerCategoriasUnicas() {
+    const categorias = new Set(productos.map(p => p.categoria));
+    return ["Todos", ...categorias];
+}
 
-    contenedorProductos.appendChild(tarjeta);
+function renderizarProductos(categoriaElegida) {
+    contenedorProductos.innerHTML = "";
 
-});
+    const productosFiltrados = categoriaElegida === "Todos"
+        ? productos
+        : productos.filter(p => p.categoria === categoriaElegida);
+
+    productosFiltrados.forEach(producto => {
+        const tarjeta = crearTarjetaProducto(producto);
+        contenedorProductos.appendChild(tarjeta);
+    });
+}
+
+function crearFiltros() {
+    const contenedorFiltros = document.querySelector("#filtros-categoria");
+    const categorias = obtenerCategoriasUnicas();
+
+    categorias.forEach(categoria => {
+        const btnFiltro = document.createElement("button");
+        btnFiltro.textContent = categoria;
+        btnFiltro.classList.add("btn-filtro");
+
+        if (categoria === "Todos") {
+            btnFiltro.classList.add("activo");
+        }
+
+        btnFiltro.addEventListener("click", () => {
+            contenedorFiltros.querySelectorAll(".btn-filtro").forEach(b => {
+                b.classList.remove("activo");
+            });
+            btnFiltro.classList.add("activo");
+
+            renderizarProductos(categoria);
+        });
+
+        contenedorFiltros.appendChild(btnFiltro);
+    });
+}
+
+crearFiltros();
+renderizarProductos("Todos");
 
 
+// Bloquear que el usuario elija una fecha con menos de 2 días de anticipación
 const inputFecha = document.querySelector("#fechaEntrega");
 
 const fechaMinima = new Date();

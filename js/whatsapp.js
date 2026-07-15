@@ -8,7 +8,6 @@ btnWhatsapp.addEventListener("click", () => {
         return;
     }
 
-
     // 1.b Validar pedido mínimo (12 bandejas en total)
     if (calcularCantidadTotal() < PEDIDO_MINIMO_BANDEJAS) {
         alert(`El pedido mínimo es de ${PEDIDO_MINIMO_BANDEJAS} bandejas en total. Te faltan ${PEDIDO_MINIMO_BANDEJAS - calcularCantidadTotal()}.`);
@@ -70,7 +69,7 @@ btnWhatsapp.addEventListener("click", () => {
         return;
     }
 
-     // 4. Armar el mensaje
+    // 4. Armar el mensaje
     const separador = "▬".repeat(18);
 
     let mensaje = `★ *Nuevo pedido - Fatu Delicias y Sabores*\n`;
@@ -78,8 +77,9 @@ btnWhatsapp.addEventListener("click", () => {
 
     mensaje += `✎ *Pedido:*\n`;
     carrito.forEach(item => {
-        mensaje += `• ${item.cantidad} x ${item.nombrePedido} = $${item.precio * item.cantidad}\n`;
+        mensaje += `• ${item.cantidad} x ${item.nombre} = $${item.precio * item.cantidad}\n`;
     });
+
     const subtotal = calcularTotal();
     const descuento = calcularDescuento();
 
@@ -115,6 +115,5 @@ btnWhatsapp.addEventListener("click", () => {
     const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
 
     window.open(url, "_blank");
-
 
 });

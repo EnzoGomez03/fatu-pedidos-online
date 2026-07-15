@@ -534,3 +534,35 @@ section h2 {
     background: var(--color-fondo);
     border-color: var(--color-acento);
 }
+
+
+/*================FILTROS=========================*/
+.filtros-categoria {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: var(--esp-md);
+}
+
+.btn-filtro {
+    padding: 8px 18px;
+    border: 1.5px solid var(--color-borde);
+    border-radius: 20px;
+    background: white;
+    color: var(--color-texto);
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: var(--fuente-texto);
+    cursor: pointer;
+    transition: .2s;
+}
+
+.btn-filtro:hover {
+    border-color: var(--color-acento);
+}
+
+.btn-filtro.activo {
+    background: var(--color-principal);
+    border-color: var(--color-principal);
+    color: white;
+}

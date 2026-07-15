@@ -4,7 +4,8 @@ const productos = [
     {
         id: 1,
         nombre: "Conitos",
-        nombrePedido : "Bandeja de Conitos",
+        nombrePedido: "Bandeja de Conitos",
+        categoria: "Galletas",
         precio: PRECIO_UNICO_BANDEJA,
         descripcion: "Bandeja x9",
         variantes: [
@@ -18,6 +19,7 @@ const productos = [
         id: 2,
         nombre: "Alfajores",
         nombrePedido: "Bandeja de Alfajores",
+        categoria: "Galletas",
         precio: PRECIO_UNICO_BANDEJA,
         descripcion: "Bandeja x9",
         variantes: [
@@ -31,6 +33,7 @@ const productos = [
         id: 3,
         nombre: "Palmeritas",
         nombrePedido: "Bandeja de Palmeritas",
+        categoria: "Galletas",
         precio: PRECIO_UNICO_BANDEJA,
         descripcion: "Bandeja x15",
         imagen: "assets/img/palmeritasFatu.jpeg"
@@ -39,6 +42,7 @@ const productos = [
         id: 4,
         nombre: "Rosquitas",
         nombrePedido: "Bandeja de Rosquitas",
+        categoria: "Galletas",
         precio: PRECIO_UNICO_BANDEJA,
         descripcion: "Bandeja x10",
         variantes: [
@@ -52,6 +56,7 @@ const productos = [
         id: 5,
         nombre: "Cañones",
         nombrePedido: "Bandeja de Cañones",
+        categoria: "Galletas",
         precio: PRECIO_UNICO_BANDEJA,
         descripcion: "Bandeja x9 - Con azúcar impalpable",
         imagen: "assets/img/CanonesFatu.jpeg"
@@ -59,7 +64,8 @@ const productos = [
     {
         id: 6,
         nombre: "Pepas",
-        nombrePedido:"Bandeja de Pepas",
+        nombrePedido: "Bandeja de Pepas",
+        categoria: "Galletas",
         precio: PRECIO_UNICO_BANDEJA,
         descripcion: "Bandeja x21",
         variantes: [
@@ -71,6 +77,7 @@ const productos = [
         id: 7,
         nombre: "Merengues",
         nombrePedido: "Bandeja Merengues",
+        categoria: "Galletas",
         precio: PRECIO_UNICO_BANDEJA,
         descripcion: "Bandeja x8",
         imagen: "assets/img/MerenguesFatu.jpeg"
@@ -78,7 +85,8 @@ const productos = [
     {
         id: 8,
         nombre: "Bastoncitos",
-        nombrePedido:"Bandeja de Bastoncitos",
+        nombrePedido: "Bandeja de Bastoncitos",
+        categoria: "Galletas",
         precio: PRECIO_UNICO_BANDEJA,
         descripcion: "Bandeja x11",
         imagen: "assets/img/BastoncitosFatu.jpeg"
@@ -86,7 +94,8 @@ const productos = [
     {
         id: 9,
         nombre: "Cuadradas",
-        nombrePedido:"Bandeja de Cuadradas",
+        nombrePedido: "Bandeja de Cuadradas",
+        categoria: "Galletas",
         precio: PRECIO_UNICO_BANDEJA,
         descripcion: "Bandeja x8",
         imagen: "assets/img/CuadradasFatu.jpeg"
@@ -95,6 +104,7 @@ const productos = [
         id: 10,
         nombre: "Polvorones",
         nombrePedido: "Bandeja de Polvorones",
+        categoria: "Galletas",
         precio: PRECIO_UNICO_BANDEJA,
         descripcion: "Bandeja x12",
         imagen: "assets/img/PolvoronesFatu.jpeg"
@@ -102,7 +112,8 @@ const productos = [
     {
         id: 11,
         nombre: "Trilogía",
-        nombrePedido:"Bandeja de Trilogía",
+        nombrePedido: "Bandeja de Trilogía",
+        categoria: "Galletas",
         precio: PRECIO_UNICO_BANDEJA,
         descripcion: "Combinada: blancos, naturales y con chocolate y maní",
         imagen: "assets/img/TrilogiaFatu.jpeg"
@@ -111,6 +122,7 @@ const productos = [
         id: 12,
         nombre: "Surtidas",
         nombrePedido: "Bandeja de surtidas",
+        categoria: "Galletas",
         precio: PRECIO_UNICO_BANDEJA,
         descripcion: "Variedad al azar (incluye 4 alfajores blancos + 4 negros)",
         imagen: "assets/img/BandejaSurtidaFatu.jpeg"
