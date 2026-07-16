@@ -52,6 +52,34 @@ function establecerCantidadEnCarrito(producto, cantidadNueva) {
     actualizarCarrito();
 }
 
+function guardarCarritoEnStorage() {
+    try {
+        localStorage.setItem("carritoFatu", JSON.stringify(carrito));
+    } catch (error) {
+        console.error("No se pudo guardar el carrito:", error);
+    }
+}
+
+function cargarCarritoDesdeStorage() {
+    try {
+        const guardado = localStorage.getItem("carritoFatu");
+        if (guardado) {
+            const itemsGuardados = JSON.parse(guardado);
+            itemsGuardados.forEach(item => carrito.push(item));
+        }
+    } catch (error) {
+        console.error("No se pudo cargar el carrito guardado:", error);
+    }
+}
+
+function vaciarCarrito() {
+    carrito.length = 0; // Vacía el array sin perder la referencia (no podemos reasignar, es "const")
+    localStorage.removeItem("carritoFatu");
+    actualizarCarrito();
+}
+
+
+
 function calcularTotal() {
     return carrito.reduce((total, item) => total + item.precio * item.cantidad, 0);
 }
@@ -68,6 +96,7 @@ function obtenerCantidadEnCarrito(id) {
     const item = carrito.find(item => item.id === id);
     return item ? item.cantidad : 0;
 }
+
 
 function actualizarCarrito() {
     const listaPedido = document.querySelector("#lista-pedido");
@@ -134,8 +163,13 @@ function actualizarCarrito() {
     if (typeof sincronizarTodosLosContadores === "function") {
         sincronizarTodosLosContadores();
     }
+
+    guardarCarritoEnStorage(); //guarda automáticamente cada vez que el carrito cambia
+
 }
 
 document.querySelector("#carrito-flotante").addEventListener("click", () => {
     document.querySelector("#pedido").scrollIntoView({ behavior: "smooth" });
 });
+cargarCarritoDesdeStorage();
+actualizarCarrito();

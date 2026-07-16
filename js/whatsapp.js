@@ -132,5 +132,6 @@ btnWhatsapp.addEventListener("click", () => {
     const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
 
     window.open(url, "_blank");
-
+    vaciarCarrito();
+    
 });
