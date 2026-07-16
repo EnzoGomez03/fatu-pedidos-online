@@ -220,3 +220,25 @@ inputFecha.addEventListener("change", () => {
         inputFecha.value = "";
     }
 });
+
+
+// ---------- Punto de entrega (local / domicilio) ----------
+const selectPunto = document.querySelector("#puntoEntrega");
+const campoDireccion = document.querySelector("#campo-direccion");
+const campoEntreCalles = document.querySelector("#campo-entrecalles");
+const campoLocalInfo = document.querySelector("#campo-local-info");
+
+function actualizarVistaPuntoEntrega() {
+    if (selectPunto.value === "local") {
+        campoDireccion.style.display = "none";
+        campoEntreCalles.style.display = "none";
+        campoLocalInfo.style.display = "flex";
+    } else {
+        campoDireccion.style.display = "flex";
+        campoEntreCalles.style.display = "flex";
+        campoLocalInfo.style.display = "none";
+    }
+}
+
+selectPunto.addEventListener("change", actualizarVistaPuntoEntrega);
+actualizarVistaPuntoEntrega(); // Ejecutamos una vez al cargar, para el estado inicial

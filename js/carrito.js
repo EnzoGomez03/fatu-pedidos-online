@@ -1,6 +1,10 @@
 const carrito = [];
 
 const PEDIDO_MINIMO_BANDEJAS = 12;
+const DIRECCION_LOCAL = "Hornero 4211, San José, Temperley";
+const PORCENTAJE_SEÑA = 0.50;
+const ALIAS_TRANSFERENCIA = "COMPLETAR_ALIAS_O_CBU";
+const ALIAS_MERCADOPAGO = "COMPLETAR_ALIAS_MERCADOPAGO"; 
 
 function agregarProducto(producto) {
     const productoExistente = carrito.find(item => item.id === producto.id);
@@ -54,6 +58,10 @@ function calcularTotal() {
 
 function calcularCantidadTotal() {
     return carrito.reduce((total, item) => total + item.cantidad, 0);
+}
+
+function calcularSeña() {
+    return calcularTotal() * PORCENTAJE_SEÑA;
 }
 
 function obtenerCantidadEnCarrito(id) {

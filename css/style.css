@@ -630,3 +630,14 @@ section h2 {
 .modal-caja button:hover {
     background: var(--color-principal-hover);
 }
+
+/*==========Direccion local===============*/
+.direccion-local-texto {
+    padding: 12px;
+    background: var(--color-fondo);
+    border: 1.5px solid var(--color-borde);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: var(--color-texto);
+}
+

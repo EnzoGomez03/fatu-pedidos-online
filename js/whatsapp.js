@@ -19,8 +19,10 @@ btnWhatsapp.addEventListener("click", () => {
     const telefono = document.querySelector("#telefono").value.trim();
     const fechaEntrega = document.querySelector("#fechaEntrega").value;
     const horarioEntrega = document.querySelector("#horarioEntrega").value;
+    const puntoEntrega = document.querySelector("#puntoEntrega").value;
     const direccion = document.querySelector("#direccion").value.trim();
     const entreCalles = document.querySelector("#EntreCalles").value.trim();
+    const metodoSeña = document.querySelector("#metodoSeña").value;
     const pago = document.querySelector("#pago").value;
     const observaciones = document.querySelector("#observaciones").value.trim();
 
@@ -36,15 +38,22 @@ btnWhatsapp.addEventListener("click", () => {
         return;
     }
 
-    if (direccion.length < 3) {
-        mostrarAviso("Ingresá la dirección de entrega.");
+    if (metodoSeña === "") {
+        mostrarAviso("Elegí cómo vas a pagar la seña (transferencia o Mercado Pago).");
         return;
     }
 
-    if (entreCalles.length < 3) {
-        mostrarAviso("Ingresá entre qué calles está la dirección.");
-        return;
+    if (puntoEntrega === "domicilio") {
+        if (direccion.length < 3) {
+            mostrarAviso("Ingresá la dirección de entrega.");
+            return;
+        }
+
+        if (entreCalles.length < 3) {
+            mostrarAviso("Ingresá entre qué calles está la dirección.");
+            return;
     }
+}
 
     if (fechaEntrega === "") {
         mostrarAviso("Elegí una fecha de entrega.");
@@ -80,7 +89,15 @@ btnWhatsapp.addEventListener("click", () => {
         mensaje += `• ${item.cantidad} x ${item.nombre} = $${item.precio * item.cantidad}\n`;
     });
 
-    mensaje += `\n✦ *Total: $${calcularTotal().toFixed(0)}*\n\n`;
+    mensaje += `\n✦ *Total: $${calcularTotal().toFixed(0)}*\n`;
+    const señaMonto = calcularSeña();
+    mensaje += `\n✦ *Seña a abonar (50%): $${señaMonto.toFixed(0)}*\n`;
+
+    if (metodoSeña === "transferencia") {
+        mensaje += `Pagar por transferencia a: ${ALIAS_TRANSFERENCIA}\n\n`;
+    } else {
+        mensaje += `Pagar por Mercado Pago a: ${ALIAS_MERCADOPAGO}\n\n`;
+    }
 
     mensaje += `${separador}\n`;
     mensaje += `● *Cliente:*\n`;
@@ -89,8 +106,16 @@ btnWhatsapp.addEventListener("click", () => {
 
     mensaje += `${separador}\n`;
     mensaje += `➤ *Entrega:*\n`;
-    mensaje += `Dirección: ${direccion}\n`;
-    mensaje += `Entre calles: ${entreCalles}\n`;
+
+    if (puntoEntrega === "local") {
+        mensaje += `Modalidad: Retiro en el local\n`;
+        mensaje += `Dirección del local: ${DIRECCION_LOCAL}\n`;
+    } else {
+        mensaje += `Modalidad: Envío a domicilio\n`;
+        mensaje += `Dirección: ${direccion}\n`;
+        mensaje += `Entre calles: ${entreCalles}\n`;
+    }
+
     mensaje += `Fecha: ${fechaEntrega}\n`;
     mensaje += `Horario: ${horarioEntrega}\n\n`;
 

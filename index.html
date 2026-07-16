@@ -35,6 +35,8 @@
             📦 Todos nuestros productos se venden <strong>por bandeja</strong>, no por unidad suelta. Ideal para eventos, cumpleaños, kioscos, panaderías y otros comercios.
             <br><br>
             💬 <strong>Revendedores:</strong> a partir de 100 bandejas hay descuentos especiales.
+            <br><br>
+            💰 <strong>Seña:</strong> se abona el 50% del total por transferencia o Mercado Pago para confirmar el pedido.
         </div>
 
         <div id="filtros-categoria" class="filtros-categoria">
@@ -55,9 +57,6 @@
             </div>
 
             <p id="estado-minimo"></p>
-
-            <p id="fila-subtotal" style="display: none;">Subtotal: $<span id="subtotal">0</span></p>
-            <p id="fila-descuento" style="display: none;">Descuento por volumen (10%): -$<span id="descuento">0</span></p>
 
             <h3>Total: $<span id="total">0</span></h3>
 
@@ -81,13 +80,36 @@
                 </div>
 
                 <div class="campo">
-                    <label for = "direccion">Direccion de Entrega</label>
-                    <input type="text" id="direccion" placeholder="Calle y numero" required>
+                    <label for="puntoEntrega">Punto de entrega</label>
+                    <select id="puntoEntrega">
+                        <option value="domicilio">Envío a domicilio</option>
+                        <option value="local">Retiro en el local</option>
+                    </select>
                 </div>
 
                 <div class="campo">
+                    <label for="metodoSeña">¿Cómo vas a pagar la seña (50%)?</label>
+                    <select id="metodoSeña" required>
+                        <option value="">Elegí una opción</option>
+                        <option value="transferencia">Transferencia bancaria</option>
+                        <option value="mercadopago">Mercado Pago</option>
+                    </select>
+                </div>
+
+
+                <div class="campo" id="campo-direccion">
+                    <label for="direccion">Dirección de Entrega</label>
+                    <input type="text" id="direccion" placeholder="Calle y numero" required>
+                </div>
+
+                <div class="campo" id="campo-entrecalles">
                     <label for="EntreCalles">Entre Calles</label>
                     <input type="text" id="EntreCalles" placeholder="Entre calles" required>
+                </div>
+
+                <div class="campo campo-full" id="campo-local-info" style="display: none;">
+                    <label>Dirección del local</label>
+                    <p class="direccion-local-texto">📍 Hornero 4211, San José, Temperley</p>
                 </div>
 
                 <div class="campo">
@@ -105,7 +127,7 @@
 
 
                 <div class="campo">
-                    <label for="pago">Forma de pago</label>
+                    <label for="pago">Forma de pago del saldo restante</label>
 
                     <select id="pago">
 
