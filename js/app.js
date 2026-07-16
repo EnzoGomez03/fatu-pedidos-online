@@ -90,14 +90,19 @@ function crearTarjetaProducto(producto) {
     contador.appendChild(cantidadInput);
     contador.appendChild(btnMas);
 
-    // ---------- Botones de salto rápido (+5 / +10) ----------
+    // ---------- Botones de salto rápido (-10 / -5 / +5 / +10) ----------
     const saltosRapidos = document.createElement("div");
     saltosRapidos.classList.add("saltos-rapidos");
 
-    [5, 10].forEach(salto => {
+    [-10, -5, 5, 10].forEach(salto => {
         const btnSalto = document.createElement("button");
-        btnSalto.textContent = `+${salto}`;
+        btnSalto.textContent = salto > 0 ? `+${salto}` : `${salto}`;
         btnSalto.classList.add("btn-salto");
+
+        if (salto < 0) {
+            btnSalto.classList.add("btn-salto-restar");
+        }
+
         btnSalto.addEventListener("click", () => {
             const cantidadActual = obtenerCantidadEnCarrito(idActual());
             establecerCantidadEnCarrito(armarProductoParaCarrito(), cantidadActual + salto);

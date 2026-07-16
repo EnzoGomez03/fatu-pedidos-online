@@ -1,9 +1,6 @@
 const carrito = [];
 
-// Reglas de negocio (todas juntas acá, para poder ajustarlas fácil el día de mañana)
 const PEDIDO_MINIMO_BANDEJAS = 12;
-const UMBRAL_DESCUENTO_BANDEJAS = 100;
-const PORCENTAJE_DESCUENTO = 0.10;
 
 function agregarProducto(producto) {
     const productoExistente = carrito.find(item => item.id === producto.id);
@@ -33,13 +30,11 @@ function eliminarProducto(producto) {
 }
 
 function establecerCantidadEnCarrito(producto, cantidadNueva) {
-    // Nos aseguramos de que sea un número entero válido, nunca negativo
     cantidadNueva = Math.max(0, Math.floor(cantidadNueva) || 0);
 
     const productoExistente = carrito.find(item => item.id === producto.id);
 
     if (cantidadNueva === 0) {
-        // Si la cantidad nueva es 0, sacamos el producto del carrito directamente
         if (productoExistente) {
             const index = carrito.findIndex(item => item.id === producto.id);
             carrito.splice(index, 1);
@@ -53,25 +48,12 @@ function establecerCantidadEnCarrito(producto, cantidadNueva) {
     actualizarCarrito();
 }
 
-
-
 function calcularTotal() {
     return carrito.reduce((total, item) => total + item.precio * item.cantidad, 0);
 }
 
 function calcularCantidadTotal() {
     return carrito.reduce((total, item) => total + item.cantidad, 0);
-}
-
-function calcularDescuento() {
-    if (calcularCantidadTotal() >= UMBRAL_DESCUENTO_BANDEJAS) {
-        return calcularTotal() * PORCENTAJE_DESCUENTO;
-    }
-    return 0;
-}
-
-function calcularTotalFinal() {
-    return calcularTotal() - calcularDescuento();
 }
 
 function obtenerCantidadEnCarrito(id) {
@@ -84,10 +66,6 @@ function actualizarCarrito() {
     const totalSpan = document.querySelector("#total");
     const contadorFlotante = document.querySelector("#carrito-contador");
     const estadoMinimo = document.querySelector("#estado-minimo");
-    const filaSubtotal = document.querySelector("#fila-subtotal");
-    const filaDescuento = document.querySelector("#fila-descuento");
-    const subtotalSpan = document.querySelector("#subtotal");
-    const descuentoSpan = document.querySelector("#descuento");
 
     if (carrito.length === 0) {
         listaPedido.innerHTML = "<p>Tu carrito está vacío.</p>";
@@ -95,8 +73,6 @@ function actualizarCarrito() {
         contadorFlotante.textContent = 0;
         estadoMinimo.textContent = "";
         estadoMinimo.classList.remove("aviso-minimo");
-        filaSubtotal.style.display = "none";
-        filaDescuento.style.display = "none";
         return;
     }
 
@@ -134,9 +110,7 @@ function actualizarCarrito() {
     });
 
     const totalItems = calcularCantidadTotal();
-    const subtotal = calcularTotal();
 
-    // Aviso de pedido mínimo
     if (totalItems < PEDIDO_MINIMO_BANDEJAS) {
         const faltan = PEDIDO_MINIMO_BANDEJAS - totalItems;
         estadoMinimo.textContent = `Te faltan ${faltan} bandeja${faltan === 1 ? "" : "s"} para alcanzar el pedido mínimo de ${PEDIDO_MINIMO_BANDEJAS}.`;
@@ -146,20 +120,7 @@ function actualizarCarrito() {
         estadoMinimo.classList.remove("aviso-minimo");
     }
 
-    // Descuento por volumen
-    if (totalItems >= UMBRAL_DESCUENTO_BANDEJAS) {
-        const descuento = calcularDescuento();
-        filaSubtotal.style.display = "block";
-        filaDescuento.style.display = "block";
-        subtotalSpan.textContent = subtotal.toFixed(0);
-        descuentoSpan.textContent = descuento.toFixed(0);
-        totalSpan.textContent = calcularTotalFinal().toFixed(0);
-    } else {
-        filaSubtotal.style.display = "none";
-        filaDescuento.style.display = "none";
-        totalSpan.textContent = subtotal.toFixed(0);
-    }
-
+    totalSpan.textContent = calcularTotal();
     contadorFlotante.textContent = totalItems;
 
     if (typeof sincronizarTodosLosContadores === "function") {

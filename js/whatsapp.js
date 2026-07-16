@@ -80,15 +80,7 @@ btnWhatsapp.addEventListener("click", () => {
         mensaje += `• ${item.cantidad} x ${item.nombre} = $${item.precio * item.cantidad}\n`;
     });
 
-    const subtotal = calcularTotal();
-    const descuento = calcularDescuento();
-
-    if (descuento > 0) {
-        mensaje += `\nSubtotal: $${subtotal.toFixed(0)}\n`;
-        mensaje += `Descuento por volumen (10%): -$${descuento.toFixed(0)}\n`;
-    }
-
-    mensaje += `\n✦ *Total: $${calcularTotalFinal().toFixed(0)}*\n\n`;
+    mensaje += `\n✦ *Total: $${calcularTotal().toFixed(0)}*\n\n`;
 
     mensaje += `${separador}\n`;
     mensaje += `● *Cliente:*\n`;
