@@ -216,7 +216,7 @@ inputFecha.addEventListener("change", () => {
     const diaSemana = fechaElegida.getDay();
 
     if (diaSemana === 0 || diaSemana === 1) {
-        alert("No hacemos entregas los domingos ni los lunes. Elegí una fecha de martes a sábado.");
+        mostrarAviso("No hacemos entregas los domingos ni los lunes. Elegí una fecha de martes a sábado.");
         inputFecha.value = "";
     }
 });

@@ -511,6 +511,8 @@ section h2 {
     border-color: var(--color-acento);
 }
 
+/*==========Saltos rapidos==================*/
+
 .saltos-rapidos {
     display: flex;
     justify-content: center;
@@ -535,6 +537,15 @@ section h2 {
     border-color: var(--color-acento);
 }
 
+.btn-salto-restar {
+    border-color: var(--color-principal);
+    color: var(--color-principal);
+}
+
+.btn-salto-restar:hover {
+    background: var(--color-principal);
+    color: white;
+}
 
 /*================FILTROS=========================*/
 .filtros-categoria {
@@ -565,4 +576,57 @@ section h2 {
     background: var(--color-principal);
     border-color: var(--color-principal);
     color: white;
+}
+
+
+/*==========Avisos=====================*/
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: var(--esp-md);
+}
+
+.modal-overlay.oculto {
+    display: none;
+}
+
+.modal-caja {
+    background: white;
+    border-radius: var(--radio);
+    padding: var(--esp-lg);
+    max-width: 380px;
+    text-align: center;
+    box-shadow: var(--sombra-hover);
+}
+
+.modal-caja p {
+    font-size: 1rem;
+    color: var(--color-texto);
+    margin-bottom: var(--esp-md);
+    line-height: 1.5;
+}
+
+.modal-caja button {
+    padding: 10px 32px;
+    border: none;
+    border-radius: 10px;
+    background: var(--color-principal);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: var(--fuente-texto);
+    cursor: pointer;
+    transition: .2s;
+}
+
+.modal-caja button:hover {
+    background: var(--color-principal-hover);
 }

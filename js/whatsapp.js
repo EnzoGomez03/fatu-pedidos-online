@@ -4,13 +4,13 @@ btnWhatsapp.addEventListener("click", () => {
 
     // 1. Validar que haya al menos un producto
     if (carrito.length === 0) {
-        alert("Tu carrito está vacío. Agregá al menos un producto antes de enviar el pedido.");
+        mostrarAviso("Tu carrito está vacío. Agregá al menos un producto antes de enviar el pedido.");
         return;
     }
 
     // 1.b Validar pedido mínimo (12 bandejas en total)
     if (calcularCantidadTotal() < PEDIDO_MINIMO_BANDEJAS) {
-        alert(`El pedido mínimo es de ${PEDIDO_MINIMO_BANDEJAS} bandejas en total. Te faltan ${PEDIDO_MINIMO_BANDEJAS - calcularCantidadTotal()}.`);
+        mostrarAviso(`El pedido mínimo es de ${PEDIDO_MINIMO_BANDEJAS} bandejas en total. Te faltan ${PEDIDO_MINIMO_BANDEJAS - calcularCantidadTotal()}.`);
         return;
     }
 
@@ -26,28 +26,28 @@ btnWhatsapp.addEventListener("click", () => {
 
     // 3. Validaciones
     if (nombre.length < 3) {
-        alert("Ingresá tu nombre completo (mínimo 3 caracteres).");
+        mostrarAviso("Ingresá tu nombre completo (mínimo 3 caracteres).");
         return;
     }
 
     const soloNumeros = /^[0-9]{8,}$/;
     if (!soloNumeros.test(telefono)) {
-        alert("Ingresá un teléfono válido, solo números y sin espacios (mínimo 8 dígitos). Ej: 1165308996");
+        mostrarAviso("Ingresá un teléfono válido, solo números y sin espacios (mínimo 8 dígitos). Ej: 1165308996");
         return;
     }
 
     if (direccion.length < 3) {
-        alert("Ingresá la dirección de entrega.");
+        mostrarAviso("Ingresá la dirección de entrega.");
         return;
     }
 
     if (entreCalles.length < 3) {
-        alert("Ingresá entre qué calles está la dirección.");
+        mostrarAviso("Ingresá entre qué calles está la dirección.");
         return;
     }
 
     if (fechaEntrega === "") {
-        alert("Elegí una fecha de entrega.");
+        mostrarAviso("Elegí una fecha de entrega.");
         return;
     }
 
@@ -56,7 +56,7 @@ btnWhatsapp.addEventListener("click", () => {
     // Revalidar días bloqueados (domingo/lunes), por si el valor se forzó a mano
     const diaSemana = fechaElegida.getDay();
     if (diaSemana === 0 || diaSemana === 1) {
-        alert("No hacemos entregas los domingos ni los lunes. Elegí una fecha de martes a sábado.");
+        mostrarAviso("No hacemos entregas los domingos ni los lunes. Elegí una fecha de martes a sábado.");
         return;
     }
 
@@ -65,7 +65,7 @@ btnWhatsapp.addEventListener("click", () => {
     minimaValidacion.setHours(0, 0, 0, 0);
 
     if (fechaElegida < minimaValidacion) {
-        alert("La fecha de entrega debe ser con un mínimo de 2 días de anticipación.");
+        mostrarAviso("La fecha de entrega debe ser con un mínimo de 2 días de anticipación.");
         return;
     }
 
