@@ -704,3 +704,24 @@ button.btn-primario {
 button.btn-primario:hover {
     background: #1DA851;
 }
+
+/*==========Boton de vaciar carrito=======================*/
+
+.btn-vaciar {
+    width: 100%;
+    padding: 10px;
+    margin: var(--esp-sm) 0;
+    border: 1.5px solid var(--color-borde);
+    border-radius: 8px;
+    background: white;
+    color: var(--color-texto-suave);
+    font-size: 0.85rem;
+    font-family: var(--fuente-texto);
+    cursor: pointer;
+    transition: .2s;
+}
+
+.btn-vaciar:hover {
+    border-color: var(--color-principal);
+    color: var(--color-principal);
+}

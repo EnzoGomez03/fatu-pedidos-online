@@ -171,5 +171,10 @@ function actualizarCarrito() {
 document.querySelector("#carrito-flotante").addEventListener("click", () => {
     document.querySelector("#pedido").scrollIntoView({ behavior: "smooth" });
 });
+
+document.querySelector("#btn-vaciar-carrito").addEventListener("click", () => {
+    vaciarCarrito();
+});
+
 cargarCarritoDesdeStorage();
 actualizarCarrito();
