@@ -1,5 +1,7 @@
 const btnWhatsapp = document.querySelector("#btn-whatsapp");
 
+let urlWhatsappPendiente = null; // Guarda el link armado, hasta que el cliente confirme
+
 btnWhatsapp.addEventListener("click", () => {
 
     // 1. Validar que haya al menos un producto
@@ -52,17 +54,16 @@ btnWhatsapp.addEventListener("click", () => {
         if (entreCalles.length < 3) {
             mostrarAviso("Ingresá entre qué calles está la dirección.");
             return;
+        }
     }
-}
 
     if (fechaEntrega === "") {
         mostrarAviso("Elegí una fecha de entrega.");
         return;
     }
 
+    
     const fechaElegida = new Date(fechaEntrega + "T00:00:00");
-
-    // Revalidar días bloqueados (domingo/lunes), por si el valor se forzó a mano
     const diaSemana = fechaElegida.getDay();
     if (diaSemana === 0 || diaSemana === 1) {
         mostrarAviso("No hacemos entregas los domingos ni los lunes. Elegí una fecha de martes a sábado.");
@@ -79,6 +80,20 @@ btnWhatsapp.addEventListener("click", () => {
     }
 
     // 4. Armar el mensaje
+    const mensaje = construirMensaje({
+        nombre, telefono, fechaEntrega, horarioEntrega, puntoEntrega,
+        direccion, entreCalles, metodoSeña, pago, observaciones
+    });
+
+    // 5. Guardar el link armado, y mostrar el resumen para confirmar (en vez de abrir ya)
+    const numero = "541171328324";
+    urlWhatsappPendiente = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+
+    mostrarConfirmacion(mensaje);
+});
+
+
+function construirMensaje(datos) {
     const separador = "▬".repeat(18);
 
     let mensaje = `★ *Nuevo pedido - Fatu Delicias y Sabores*\n`;
@@ -90,10 +105,11 @@ btnWhatsapp.addEventListener("click", () => {
     });
 
     mensaje += `\n✦ *Total: $${calcularTotal().toFixed(0)}*\n`;
+
     const señaMonto = calcularSeña();
     mensaje += `\n✦ *Seña a abonar (50%): $${señaMonto.toFixed(0)}*\n`;
 
-    if (metodoSeña === "transferencia") {
+    if (datos.metodoSeña === "transferencia") {
         mensaje += `Pagar por transferencia a: ${ALIAS_TRANSFERENCIA}\n\n`;
     } else {
         mensaje += `Pagar por Mercado Pago a: ${ALIAS_MERCADOPAGO}\n\n`;
@@ -101,37 +117,66 @@ btnWhatsapp.addEventListener("click", () => {
 
     mensaje += `${separador}\n`;
     mensaje += `● *Cliente:*\n`;
-    mensaje += `Nombre: ${nombre}\n`;
-    mensaje += `Teléfono: ${telefono}\n\n`;
+    mensaje += `Nombre: ${datos.nombre}\n`;
+    mensaje += `Teléfono: ${datos.telefono}\n\n`;
 
     mensaje += `${separador}\n`;
     mensaje += `➤ *Entrega:*\n`;
 
-    if (puntoEntrega === "local") {
+    if (datos.puntoEntrega === "local") {
         mensaje += `Modalidad: Retiro en el local\n`;
         mensaje += `Dirección del local: ${DIRECCION_LOCAL}\n`;
     } else {
         mensaje += `Modalidad: Envío a domicilio\n`;
-        mensaje += `Dirección: ${direccion}\n`;
-        mensaje += `Entre calles: ${entreCalles}\n`;
+        mensaje += `Dirección: ${datos.direccion}\n`;
+        mensaje += `Entre calles: ${datos.entreCalles}\n`;
     }
 
-    mensaje += `Fecha: ${fechaEntrega}\n`;
-    mensaje += `Horario: ${horarioEntrega}\n\n`;
+    mensaje += `Fecha: ${datos.fechaEntrega}\n`;
+    mensaje += `Horario: ${datos.horarioEntrega}\n\n`;
 
     mensaje += `${separador}\n`;
-    mensaje += `● Forma de pago: ${pago}\n`;
+    mensaje += `● Forma de pago: ${datos.pago}\n`;
 
-    if (observaciones !== "") {
+    if (datos.observaciones !== "") {
         mensaje += `\n${separador}\n`;
-        mensaje += `▸ Observaciones: ${observaciones}\n`;
+        mensaje += `▸ Observaciones: ${datos.observaciones}\n`;
     }
 
-    // 5. Armar el link de WhatsApp y abrirlo
-    const numero = "541171328324";
-    const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+    return mensaje;
+}
 
-    window.open(url, "_blank");
+
+function mostrarConfirmacion(mensaje) {
+    const resumen = document.querySelector("#resumen-confirmacion");
+    resumen.textContent = mensaje; // textContent = seguro, no interpreta el texto como HTML
+    document.querySelector("#modal-confirmacion").classList.remove("oculto");
+}
+
+function ocultarConfirmacion() {
+    document.querySelector("#modal-confirmacion").classList.add("oculto");
+}
+
+document.querySelector("#btn-volver-editar").addEventListener("click", () => {
+    urlWhatsappPendiente = null;
+    ocultarConfirmacion();
+});
+
+const btnConfirmarEnvio = document.querySelector("#btn-confirmar-envio");
+
+btnConfirmarEnvio.addEventListener("click", () => {
+    if (!urlWhatsappPendiente) return;
+
+    // Deshabilitamos el botón de inmediato, para que un segundo clic no haga nada
+    btnConfirmarEnvio.disabled = true;
+    btnConfirmarEnvio.textContent = "Enviando...";
+
+    window.open(urlWhatsappPendiente, "_blank");
     vaciarCarrito();
-    
+    urlWhatsappPendiente = null;
+    ocultarConfirmacion();
+
+    // Lo volvemos a habilitar para la próxima vez que se abra este modal
+    btnConfirmarEnvio.disabled = false;
+    btnConfirmarEnvio.textContent = "Confirmar y enviar";
 });

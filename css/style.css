@@ -641,3 +641,66 @@ section h2 {
     color: var(--color-texto);
 }
 
+/*===========Modelo de confirmacion de pedido===================*/
+
+.modal-confirmacion-caja {
+    max-width: 480px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-confirmacion-caja h3 {
+    font-family: var(--fuente-titulo);
+    color: var(--color-principal);
+    margin-bottom: var(--esp-sm);
+}
+
+.resumen-confirmacion {
+    text-align: left;
+    white-space: pre-wrap;
+    font-size: 0.85rem;
+    background: var(--color-fondo);
+    border-radius: 8px;
+    padding: var(--esp-sm);
+    overflow-y: auto;
+    max-height: 50vh;
+    margin-bottom: var(--esp-md);
+    font-family: monospace;
+}
+
+.botones-confirmacion {
+    display: flex;
+    gap: 10px;
+}
+
+.botones-confirmacion button {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-family: var(--fuente-texto);
+    cursor: pointer;
+    border: none;
+    transition: .2s;
+}
+
+button.btn-secundario {
+    background: white;
+    border: 1.5px solid var(--color-borde);
+    color: var(--color-texto);
+}
+
+button.btn-secundario:hover {
+    background: var(--color-fondo);
+}
+
+button.btn-primario {
+    background: #25D366;
+    color: white;
+}
+
+button.btn-primario:hover {
+    background: #1DA851;
+}
