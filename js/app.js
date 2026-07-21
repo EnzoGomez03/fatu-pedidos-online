@@ -63,6 +63,7 @@ function crearTarjetaProducto(producto) {
     }
 
     actualizarCantidadMostrada();
+    actualizadoresDeCantidad.push(actualizarCantidadMostrada);
 
     const btnMenos = document.createElement("button");
     btnMenos.textContent = "-";
