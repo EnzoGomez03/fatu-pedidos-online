@@ -194,8 +194,29 @@ function crearFiltros() {
     });
 }
 
-crearFiltros();
-renderizarProductos("Todos");
+//Esto es parte del Firebase
+let productos = [];
+
+async function cargarProductosDesdeFirestore() {
+    const snapshot = await db.collection("productos").get();
+
+    productos = snapshot.docs
+        .map(doc => doc.data())
+        .filter(producto => producto.disponible !== false);
+
+    productos.sort((a, b) => a.id - b.id);
+}
+
+async function iniciarPagina() {
+    contenedorProductos.innerHTML = "<p>Cargando productos...</p>";
+
+    await cargarProductosDesdeFirestore();
+
+    crearFiltros();
+    renderizarProductos("Todos");
+}
+
+iniciarPagina();
 
 
 // Bloquear que el usuario elija una fecha con menos de 2 días de anticipación
